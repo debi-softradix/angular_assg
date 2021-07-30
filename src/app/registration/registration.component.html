@@ -13,21 +13,21 @@
                   <div class="d-flex flex-row align-items-center mb-4" class="formGroup">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example1c">FirstName</label>
+                      <label class="form-label" for="form3Example1c">First Name</label>
                       <input type="text" id="form3Example1c" class="form-control" formControlName="firstname" />
                       <span class="text-danger" *ngIf="(submitted && registrationFormControl.firstname.errors)">
-                        FirstName is required
+                        First Name is required
                       </span>
-
                     </div>
                   </div>
+
                   <div class="d-flex flex-row align-items-center mb-4" class="formGroup">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label class="form-label" for="form3Example1c">LastName</label>
+                      <label class="form-label" for="form3Example1c">Last Name</label>
                       <input type="text" id="form3Example1c" class="form-control" formControlName="lastname" />
                       <span class="text-danger" *ngIf="(submitted && registrationFormControl.lastname.errors)">
-                        LastName is required
+                        Last Name is required
                       </span>
                     </div>
                   </div>
@@ -36,22 +36,32 @@
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <label class="form-label" for="form3Example3c">Email</label>
-                      <input type="email" id="form3Example3c" class="form-control" formControlName="email" />
-                      <span class="text-danger" *ngIf="(submitted && registrationFormControl.email.errors)">
-                        Email is required
+                      <input type="email" id="form3Example3c" class="form-control" formControlName="email"
+                        (input)="onBlurPassword()" [email]="true" />
+                      <span class="text-danger" *ngIf="(submitted && registrationFormControl.email)">
+                        <span *ngIf="(submitted && registrationFormControl.email.errors)">
+                          Email is required
+                    </span>
                       </span>
-                    </div>
-                  </div>
+                  <span class="text-danger" *ngIf="(submitted && registrationFormControl.email.errors)">
+                    <!-- Email address invalid -->
+                    <span *ngIf=isEmailAddressValid class="danger">{{emailErrorMsg}}
+                    </span>
+                  </span>
+                </div>
+              </div>
 
                   <div class="d-flex flex-row align-items-center mb-4" class="formGroup">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <label class="form-label" for="form3Example4c">Password</label>
-                      <input type="password" id="form3Example4c" class="form-control" formControlName="password" (input)="onBlurPassword()"/>
-                      <span class="text-danger" *ngIf="(submitted && registrationFormControl.password.errors)">
-                        password is required
+                      <input type="password" id="form3Example4c" class="form-control" formControlName="password"
+                        (input)="onBlurPassword()" />
+                      <span class="text-danger" *ngIf="(submitted && registrationFormControl.password)">
+                        <span *ngIf="(submitted && registrationFormControl.password.errors)">
+                          Password is required
+                        </span>
                       </span>
-
                     </div>
                   </div>
 
@@ -59,10 +69,10 @@
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <label class="form-label" for="form3Example4cd">Confirm password</label>
-                      <input type="password" id="form3Example4cd" class="form-control"
-                        formControlName="confirmpassword"(input)="onBlurPassword()" />
+                      <input type="password" id="form3Example4cd" class="form-control" formControlName="confirmpassword"
+                        (input)="onBlurPassword()" />
                       <span class="text-denger" *ngIf="(submitted && registrationFormControl.confirmpassword.errors)">
-                        confirm password is required
+                        Confirm password is required
                       </span>
                       <span *ngIf=isPasswordMatched class="danger">{{passwordErrorMsg}}
                       </span>
@@ -71,13 +81,14 @@
 
                   <div class="d-flex flex-row align-items-center mb-4" class="formGroup">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <label class="form-label" for="form3Example4cd">Phone number:</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" formControlName="phonenumber"><br>
-                    <span class="text-danger" *ngIf="(submitted && registrationFormControl.phonenumber.errors)">
-                      Phonenumber is required
-                    </span>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="form3Example4cd">Phone number:</label>
+                      <input type="tel" id="phone_no" name="phone" class="form-control" formControlName="phone_no">
+                      <span class="text-danger" *ngIf="(submitted && registrationFormControl.phone_no.errors)">
+                        Phone number is required
+                      </span>
+                    </div>
                   </div>
-
 
                   <div class="d-flex flex-row align-items-center mb-4" class="formGroup">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
@@ -90,25 +101,24 @@
                     </div>
                   </div>
 
+                  <br>
                   <div class="form-check d-flex justify-content-center mb-5">
                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
                     <label class="form-check-label" for="form2Example3">
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
                   </div>
+                  <br>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="button" (click)=registerUser() class="btn btn-primary btn-lg">Register</button>
                   </div>
-
                 </form>
 
               </div>
               <div class="col-md-5 col-lg-5 col-xl-5 d-flex align-items-center order-1 order-lg-2">
-
                 <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png"
                   class="img-fluid" alt="Sample image">
-
               </div>
             </div>
           </div>

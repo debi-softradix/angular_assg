@@ -4,20 +4,23 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color:cyan;
+   
   }
   
   li {
     float: left;
+    font-size: 25px;
   }
   
   li a {
     display: block;
     color:black;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 20px;
     text-decoration: none;
+    font-family:cursive;
   }
   
   li a:hover {
-    background-color:chocolate;
+    background-color:lightyellow;
   }

@@ -10,27 +10,33 @@
   
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
   
-                  <form class="mx-1 mx-md-4">
+                  <form [formGroup] = "login" (ngSubmit) = "loginUser()" class="mx-1 mx-md-4">
   
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example1c">Email</label>
-                        <input type="text" id="form3Example1c" class="form-control" />
-                        
+                        <input type="text" id="form3Example1c" class="form-control" formControlName = "email" />
+                        <span class="text-danger" *ngIf="(submitted && loginFormControl.email.errors)">
+                          Email is required
+                        </span>
                       </div>
                     </div>
+
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                             <label class="form-label" for="form3Example1c">Password</label>
-                          <input type="number" id="form3Example1c" class="form-control" />
-                          
+                          <input type="number" id="form3Example1c" class="form-control" formControlName="password" />
+                          <span class="text-danger" *ngIf="(submitted && loginFormControl.password.errors)">
+                            password is required
+                          </span>
                         </div>
                       </div>
+                      
                       <br>
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="button" class="btn btn-primary btn-lg">Login</button>
+                        <button type="button" (click)= "loginUser()" class="btn btn-primary btn-lg">Login</button>
                       </div>
                       <br>
 
