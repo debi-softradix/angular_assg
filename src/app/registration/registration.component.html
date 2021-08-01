@@ -39,15 +39,13 @@
                       <input type="email" id="form3Example3c" class="form-control" formControlName="email"
                         (input)="onBlurPassword()" [email]="true" />
                       <span class="text-danger" *ngIf="(submitted && registrationFormControl.email)">
-                        <span *ngIf="(submitted && registrationFormControl.email.errors)">
+                        <span *ngIf="(submitted && registrationFormControl.email.errors?.required)">
                           Email is required
                     </span>
-                      </span>
-                  <span class="text-danger" *ngIf="(submitted && registrationFormControl.email.errors)">
-                    <!-- Email address invalid -->
-                    <span *ngIf=isEmailAddressValid class="danger">{{emailErrorMsg}}
+                    <span *ngIf="(submitted && registrationFormControl.email.errors?.email)">
+                      Please enter valid email address
+                </span>
                     </span>
-                  </span>
                 </div>
               </div>
 
@@ -71,10 +69,11 @@
                       <label class="form-label" for="form3Example4cd">Confirm password</label>
                       <input type="password" id="form3Example4cd" class="form-control" formControlName="confirmpassword"
                         (input)="onBlurPassword()" />
-                      <span class="text-denger" *ngIf="(submitted && registrationFormControl.confirmpassword.errors)">
+                      <span class="text-denger" *ngIf="(submitted && registrationFormControl.confirmpassword.errors?.required)">
                         Confirm password is required
                       </span>
-                      <span *ngIf=isPasswordMatched class="danger">{{passwordErrorMsg}}
+                      <br>
+                      <span *ngIf="(!isPasswordMatched)" class="danger">{{passwordErrorMsg}}
                       </span>
                     </div>
                   </div>
@@ -116,6 +115,8 @@
                 </form>
 
               </div>
+
+              <button type="button" class="btn" (click)="showSuccessAlert()">Sweet Alert</button>
               <div class="col-md-5 col-lg-5 col-xl-5 d-flex align-items-center order-1 order-lg-2">
                 <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png"
                   class="img-fluid" alt="Sample image">

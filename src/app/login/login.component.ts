@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { RegistrationserviceService } from '../registrationservice.service';
+import { HttpParams } from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,9 +10,11 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder ,private _registrationService:RegistrationserviceService) { }
 
   submitted = false;
+
+
 
   ngOnInit(): void {
   }
@@ -27,6 +32,14 @@ export class LoginComponent implements OnInit {
       alert('Form submitted succesfully!!!\n check the value in browser console.')
       console.log(this.login.value);
 
-    }
+      let params = new HttpParams()
+      params = this.login.value
+      console.log("login details",params)
+
+      this._registrationService.loginUser(params)
+      .subscribe(result => {
+        console.log("result is",result)
+      })
   }
+}
 }

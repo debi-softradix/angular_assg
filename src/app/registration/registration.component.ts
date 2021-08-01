@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegistrationserviceService } from '../registrationservice.service'
+import { RegistrationserviceService } from '../registrationservice.service';
+import swal from 'sweetalert';
+
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private _registrationservice: RegistrationserviceService) { }
 
-  submitted = true;
+  submitted = false;
   isPasswordMatched: boolean = false;
   passwordErrorMsg = "";
   registrationData: any;
@@ -28,7 +30,7 @@ export class RegistrationComponent implements OnInit {
     // registration: new FormControl('',Validators.required),
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     password: new FormControl('', Validators.required),
     confirmpassword: new FormControl('', Validators.required),
     phone_no: new FormControl('', Validators.required),
@@ -42,14 +44,14 @@ export class RegistrationComponent implements OnInit {
   onBlurPassword() {
     this.passwordErrorMsg = "Password and confirm password did not match";
     if (this.registration.value.password !== this.registration.value.confirmpassword) {
-      this.isPasswordMatched = true;
+      this.isPasswordMatched = false;
       // console.log('Password and confirm password did not match.');
     } else {
-      this.isPasswordMatched = false;
+      this.isPasswordMatched = true;
     }
     
     this.emailErrorMsg = "Email is invalid";
-    if(this.registration.value.enteremail !== this.registration.value ) {
+    if(this.registration.value.email !== this.registration.value ) {
       this.isEmailAddressValid = false;
     }
     else{
@@ -57,26 +59,34 @@ export class RegistrationComponent implements OnInit {
     }
   }
   
-
   registerUser() {
-    this.submitted = false;
+    this.submitted = true;
     if (this.registration.valid) {
-      debugger
+     
       this.registrationData = this.registration.value;
       delete this.registrationData["confirmpassword"]
       console.log("registration data is", this.registrationData)
 
-      alert('Form submitted succesfully!!!\n check the value in browser console.')
+      // alert('Form submitted succesfully!!!\n check the value in browser console.')
       console.log(this.registration.value);
 
       this._registrationservice.registerUser(this.registrationData)
         .subscribe(
           Response => {
-            this.router.navigate(['Login/'])
             console.log("response data", Response);
+            if (Response["status"] == false) {
+
+              swal(Response["message"]);
+            }
+            else {
+
+              this.showSuccessAlert()
+            }
+            // this.router.navigate(['Login/'])
           },
           error => {
             console.log('error', error)
+            swal("Error from API");
           }
         )
     }
@@ -84,13 +94,21 @@ export class RegistrationComponent implements OnInit {
       // alert('Error')
 
     }
-
-    
-
-
-
-    
-
+  }
+  
+  showSuccessAlert(){
+    swal({
+      title: "Done",
+      text: "User added successfully",
+      icon: "warning",
+      dangerMode: true,
+    })
+    .then(okClick => {
+      if (okClick) {
+        this.router.navigate(['Login/'])
+      }
+    });
+      
   }
 }
 
