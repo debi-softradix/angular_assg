@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RegistrationserviceService } from '../registrationservice.service';
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -18,9 +19,9 @@ export class RegistrationComponent implements OnInit {
   isPasswordMatched: boolean = false;
   passwordErrorMsg = "";
   registrationData: any;
-  registrationForm:any;
-  isEmailAddressValid: boolean =false;
-  emailErrorMsg ="";
+  registrationForm: any;
+  isEmailAddressValid: boolean = false;
+  emailErrorMsg = "";
 
   ngOnInit(): void {
   }
@@ -49,20 +50,20 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.isPasswordMatched = true;
     }
-    
+
     this.emailErrorMsg = "Email is invalid";
-    if(this.registration.value.email !== this.registration.value ) {
+    if (this.registration.value.email !== this.registration.value) {
       this.isEmailAddressValid = false;
     }
-    else{
+    else {
       this.isEmailAddressValid = true;
     }
   }
-  
+
   registerUser() {
     this.submitted = true;
     if (this.registration.valid) {
-     
+
       this.registrationData = this.registration.value;
       delete this.registrationData["confirmpassword"]
       console.log("registration data is", this.registrationData)
@@ -95,20 +96,20 @@ export class RegistrationComponent implements OnInit {
 
     }
   }
-  
-  showSuccessAlert(){
+
+  showSuccessAlert() {
     swal({
       title: "Done",
       text: "User added successfully",
       icon: "warning",
       dangerMode: true,
     })
-    .then(okClick => {
-      if (okClick) {
-        this.router.navigate(['Login/'])
-      }
-    });
-      
+      .then(okClick => {
+        if (okClick) {
+          this.router.navigate(['Login/'])
+        }
+      });
+
   }
 }
 

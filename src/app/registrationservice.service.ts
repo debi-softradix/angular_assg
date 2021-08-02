@@ -16,7 +16,9 @@ export class RegistrationserviceService {
   loginUser(data:any) {
 
     let url = "http://localhost:3030/login";
-    return this._http.get<any>(url, {params: data}); 
+    return this._http.get<any>(url,data); 
+
   }
+  
 
 }
