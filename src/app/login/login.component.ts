@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
       // let params = new HttpParams()
 
       let params = this.login.value
-      //  localStorage.setItem('','toString')
       console.log("login details", params);
 
       this._registrationService.loginUser(params)
@@ -68,6 +67,7 @@ export class LoginComponent implements OnInit {
     })
       .then(okClick => {
         if (okClick) {
+          localStorage.setItem('loggedIn','TRUE')
           this._router.navigate(['Home/'])
         }
       });

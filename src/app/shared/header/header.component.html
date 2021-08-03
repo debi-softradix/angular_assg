@@ -4,11 +4,11 @@
   </div> -->
 <ul>
     <li>
-  <a routerLink="Registration">Registration</a>
+  <a *ngIf = "!loggedIn()" routerLink="Registration">Registration</a>
   </li>
   <ul>
     <li>
-  <a routerLink="Login">Login</a>
+  <a *ngIf = "!loggedIn()" routerLink="Login">Login</a>
   </li>
   </ul>
   

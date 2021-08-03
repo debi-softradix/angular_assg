@@ -13,6 +13,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logoutUser() {
+    debugger
+    localStorage.removeItem("loggedIn")
+    this.router.navigate(['Login/'])
+  }
 }
 
 
